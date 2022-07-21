@@ -35,6 +35,10 @@ namespace FunctionApp1
             using (var browser = await Puppeteer.LaunchAsync(options))
             using (var page = await browser.NewPageAsync())
             {
+                // it works when create screenshot
+                await page.SetViewportAsync(new ViewPortOptions { Width = 200, Height = 200});
+                //await page.GoToAsync("https://visualstudio.microsoft.com/msdn-platforms/", new NavigationOptions() { WaitUntil = new WaitUntilNavigation[] { WaitUntilNavigation.Networkidle0 }, Timeout = 0 });
+                //await page.EvaluateExpressionAsync("document.querySelector('.fusion-column-content')");
                 await page.GoToAsync("http://www.google.com");
                 //await page.WaitForSelectorAsync("img.lnXdpd");
                 //var watchDog = await page.WaitForFunctionAsync(" () => window.innerWidth < 100");
@@ -42,14 +46,18 @@ namespace FunctionApp1
                 Console.WriteLine("Generating PDF");
 
                 //Generating PDF
-                await page.PdfAsync(Path.Combine("C:\\Users\\jaidtanwar\\source\\repos\\FunctionApp1\\FunctionApp1\\", "facebook.pdf"));
+                // change path as per your project path
+                var path = $"C:\\Users\\jaidtanwar\\OfficeProject\\PuppeteerPOC\\FunctionApp1\\";
+                await page.PdfAsync(Path.Combine(path, "facebook.pdf"));
+                // it works
+                //await page.ScreenshotAsync(Path.Combine(path, "facebook.jpg"));
                 Console.WriteLine("Export completed");
 
                 //Convert to PDF to PPT
-                Document pdfDocument = new Document(Path.Combine("C:\\Users\\jaidtanwar\\source\\repos\\FunctionApp1\\FunctionApp1\\", "facebook.pdf"));
-                PptxSaveOptions pptxOptions = new PptxSaveOptions();
-                // Save output file
-                pdfDocument.Save(Path.Combine("C:\\Users\\jaidtanwar\\source\\repos\\FunctionApp1\\FunctionApp1\\", "facebook.pptx"), pptxOptions);
+                //Document pdfDocument = new Document(Path.Combine(path, "facebook.pdf"));
+                //PptxSaveOptions pptxOptions = new PptxSaveOptions();
+                //// Save output file
+                //pdfDocument.Save(Path.Combine(path, "facebook.pptx"), pptxOptions);
 
 
             }
